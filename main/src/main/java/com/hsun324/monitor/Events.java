@@ -23,6 +23,16 @@ import com.hsun324.simplebukkit.bindings.EventBindings.EventDeclaration;
 
 public class Events
 {
+	@EventDeclaration(value = Type.PLAYER_PORTAL, priority = Priority.Monitor)
+	public static void playerPortalRegister(PlayerPortalEvent event)
+	{
+		if(Config.omitEvents.contains(event.getType().name()))
+			return;
+		if(Config.omitEvents.contains(event.getType().name()))
+			return;
+		if(!event.getFrom().getWorld().equals(event.getTo().getWorld()))
+			WindowInterface.addEvent(new Event(event.getPlayer().getName() + " has teleported from " + event.getFrom().getWorld().getName() + " to " + event.getTo().getWorld().getName() + ".", EventType.USER, event.getType()));
+	}
 	@EventDeclaration(value = Type.BLOCK_IGNITE, priority = Priority.Monitor)
 	public static void blockIgniteRegister(BlockIgniteEvent event)
 	{
