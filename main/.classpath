@@ -3,7 +3,5 @@
 	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="/SimpleBukkit"/>
-	<classpathentry kind="lib" path="C:/Users/Henry/.m2/repository/com/hsun324/simplebukkit/SimpleBukkit/1.2-SNAPSHOT/SimpleBukkit-1.2-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

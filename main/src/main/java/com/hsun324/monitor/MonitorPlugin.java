@@ -27,7 +27,7 @@ public class MonitorPlugin extends JavaPlugin
 		return instance;
 	}
 	
-	private Logger logger = Logger.getLogger("Minecraft.BukkitMonitor");
+	private Logger logger = Logger.getLogger("Minecraft.ServerMonitor");
 	private Logger baseLogger = Logger.getLogger("Minecraft");
 	private String version = "";
 	private MainWindow window = new MainWindow();
@@ -73,7 +73,7 @@ public class MonitorPlugin extends JavaPlugin
 		EventBindings.getInstance().removeEventClass(Events.class);
 		window.close();
 		baseLogger.removeHandler(loggerHandler);
-		logger.info("BukkitMonitor v" + getVersion() + ": Disabled");
+		logger.info("ServerMonitor v" + getVersion() + ": Disabled");
 	}
 	public void onEnable()
 	{
@@ -92,6 +92,6 @@ public class MonitorPlugin extends JavaPlugin
 			WindowInterface.addWorld(world);
 		EventBindings.getInstance().addEventClass(Events.class);
 		baseLogger.addHandler(loggerHandler);
-		logger.info("BukkitMonitor v" + getVersion() + ": Enabled");
+		logger.info("ServerMonitor v" + getVersion() + ": Enabled");
 	}
 }

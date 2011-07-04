@@ -40,11 +40,11 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.hsun324.simplebukkit</groupId>
-      <artifactId>SimpleBukkit</artifactId>
-      <version>1.2-SNAPSHOT</version>
-      <type>jar</type>
-      <scope>compile</scope>
+    	<groupId>com.hsun324.simplebukkit</groupId>
+    	<artifactId>main</artifactId>
+    	<version>1.2</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
     </dependency>
   </dependencies>
   

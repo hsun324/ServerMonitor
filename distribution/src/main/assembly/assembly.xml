@@ -13,11 +13,11 @@
   <dependencySets>
     <dependencySet>
       <includes>
-        <include>com.hsun324.bukkitmonitor:main</include>
+        <include>com.hsun324.servermonitor:main</include>
       </includes>
       <useTransitiveDependencies>false</useTransitiveDependencies>
       <unpack>false</unpack>
-      <outputFileNameMapping>BukkitMonitor.jar</outputFileNameMapping>
+      <outputFileNameMapping>ServerMonitor.jar</outputFileNameMapping>
     </dependencySet>
   </dependencySets>
   <files>

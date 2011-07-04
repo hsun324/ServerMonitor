@@ -6,19 +6,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-  	<artifactId>BukkitMonitor</artifactId>
-  	<groupId>com.hsun324.bukkitmonitor</groupId>
+  	<artifactId>ServerMonitor</artifactId>
+  	<groupId>com.hsun324.servermonitor</groupId>
     <version>0.6</version>
   </parent>
   <artifactId>distribution</artifactId>
-  <name>BukkitMonitor Distribution</name>
+  <name>ServerMonitor Distribution</name>
 
   <dependencies>
-    <dependency>
-      <groupId>com.hsun324.bukkitmonitor</groupId>
-      <artifactId>main</artifactId>
-      <version>[0.6,)</version>
-    </dependency>
+  	<dependency>
+  		<groupId>com.hsun324.servermonitor</groupId>
+  		<artifactId>main</artifactId>
+  		<version>0.6</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
   </dependencies>
 
   <version>0.6</version>
