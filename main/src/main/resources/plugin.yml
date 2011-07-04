@@ -1,4 +1,4 @@
-name: BukkitMonitor
+name: ServerMonitor
 main: com.hsun324.monitor.MonitorPlugin
 version: "2011.0702"
 authors:
