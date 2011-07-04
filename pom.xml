@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.hsun324.servermonitor</groupId>
+  <artifactId>ServerMonitor</artifactId>
+  <version>0.6</version>
+
+  <packaging>pom</packaging>
+  <name>ServerMonitor</name>
+  
+  <scm>
+    <connection>scm:git:git://github.com/hsun324/ServerMonitor.git</connection>
+    <url>https://github.com/hsun324/ServerMonitor.git</url>
+    <developerConnection>scm:git:git@github.com:hsun324/ServerMonitor.git</developerConnection>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>bukkit-repo</id>
+      <url>http://artifacts.lukegb.com/artifactory/list/repo/</url>
+    </repository>
+    <repository>
+      <id>sk89q-mvn2</id>
+      <url>http://mvn2.sk89q.com/repo</url>
+    </repository>
+  </repositories>
+
+  <issueManagement>
+  	<system>GitHub</system>
+  	<url>https://github.com/hsun324/ServerMonitor</url>
+  </issueManagement>
+  <modules>
+  	<module>main</module>
+  	<module>distribution</module>
+  </modules>
+  
+</project>

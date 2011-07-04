@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+	<artifactId>BukkitMonitor</artifactId>
+	<groupId>com.hsun324.bukkitmonitor</groupId>
+	<version>0.6</version>
+  </parent>
+
+  <groupId>com.hsun324.bukkitmonitor</groupId>
+  <artifactId>main</artifactId>
+  <version>0.6</version>
+  <name>main</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>bukkit-repo</id>
+      <url>http://artifacts.lukegb.com/artifactory/list/repo/</url>
+    </repository>
+    <repository>
+      <id>sk89q-mvn2</id>
+      <url>http://mvn2.sk89q.com/repo</url>
+    </repository>
+  </repositories>
+
+  <issueManagement>
+  	<system>GitHub</system>
+  	<url>https://github.com/hsun324/BukkitMonitor</url>
+  </issueManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.bukkit</groupId>
+      <artifactId>craftbukkit</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>com.hsun324.simplebukkit</groupId>
+    	<artifactId>main</artifactId>
+    	<version>1.2</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+    <resources>
+      <resource>
+        <targetPath>.</targetPath>
+        <filtering>true</filtering>
+        <directory>${basedir}/src/main/resources/</directory>
+        <includes>
+          <include>plugin.yml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+</project>

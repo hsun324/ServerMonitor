@@ -1,0 +1,6 @@
+name: BukkitMonitor
+main: com.hsun324.monitor.MonitorPlugin
+version: "0.6-SNAPSHOT"
+authors:
+- hsun324
+description: A java-based plugin that gives the CraftBukkit-based modded Minecraft Server a admin gui.
