@@ -1,6 +1,0 @@
-name: BukkitMonitor
-main: com.hsun324.monitor.MonitorPlugin
-version: "2011.0702"
-authors:
-- hsun324
-description: A java-based GUI for CraftBukkit-based modded MineCraft servers.
