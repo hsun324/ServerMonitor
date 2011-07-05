@@ -15,4 +15,5 @@ public class IconsList
 	public static final Icon bugIcon = new ImageIcon(IconsList.class.getResource("bug.png"), "Bug");
 	public static final Icon tableIcon = new ImageIcon(IconsList.class.getResource("table.png"), "Table");
 	public static final Icon textIcon = new ImageIcon(IconsList.class.getResource("text.png"), "Text");
+	public static final Icon clearIcon = new ImageIcon(IconsList.class.getResource("clear.png"), "Clear");
 }

@@ -5,36 +5,50 @@ import java.awt.Font;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
-import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import com.hsun324.monitor.events.Event;
+import com.hsun324.monitor.icons.IconsList;
 
 public class IconListCellRenderer extends DefaultListCellRenderer
 {
 	private static final long serialVersionUID = -3048281252088506817L;
+	private Font downFont = null;
+	private Border noBorder = new EmptyBorder(1, 1, 1, 1);
 	
 	@Override
 	public Component getListCellRendererComponent (JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
 	{
-		JLabel label = (JLabel)super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+		setComponentOrientation(list.getComponentOrientation());
+		setEnabled(list.isEnabled());
 		if(value instanceof Event)
 		{
 			Event event = (Event)value;
-			label.setText(event.getFormattedMessage(isSelected));
+			setText(event.getFormattedMessage(isSelected));
 			Icon icon = event.getType().getIcon();
+			if(index > 0 && ((Event) list.getModel().getElementAt(index - 1)).getType().equals(event.getType()))
+				icon = IconsList.clearIcon;
 			if(icon != null)
-				label.setIcon(icon);
+				setIcon(icon);
 			if(isSelected)
 			{
-				label.setBackground(event.getType().getBackgroundColor());
-				label.setFont(new Font(list.getFont().getFamily(), (list.getFont().isPlain()?Font.BOLD:list.getFont().getStyle() | Font.BOLD), list.getFont().getSize()));
+				setBackground(event.getType().getBackgroundColor());
+				if(downFont == null)
+					downFont = new Font(list.getFont().getFamily(), Font.BOLD, list.getFont().getSize());
+				setFont(downFont);
 			}
 			else
-				label.setBackground(event.getType().getUpBackgroundColor());
+			{
+				setBackground(event.getType().getUpBackgroundColor());
+				setFont(list.getFont());
+			}
 			if(cellHasFocus)
-				label.setBorder(event.getType().getBorder());
+				setBorder(event.getType().getBorder());
+			else
+				setBorder(noBorder);
 		}
-		return label;
+		return this;
 	}
 }

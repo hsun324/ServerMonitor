@@ -1,5 +1,9 @@
 package com.hsun324.monitor.swing;
 
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -13,22 +17,36 @@ public class WindowInterface
 {
 	public static void addEvent(Event event)
 	{
-		MonitorPlugin.getInstance().getWindow().getEventListModel().addElement(event);
+		DefaultListModel model = MonitorPlugin.getInstance().getWindow().getEventListModel();
+		model.addElement(event);
 		
-		if(MonitorPlugin.getInstance().getWindow().getEventListModel().size() > Config.maxEvents)
-			MonitorPlugin.getInstance().getWindow().getEventListModel().remove(0);
+		while(model.size() > Config.maxEvents)
+			model.remove(0);
 		
-		MonitorPlugin.getInstance().getWindow().getEventList().ensureIndexIsVisible(MonitorPlugin.getInstance().getWindow().getEventListModel().size() - 1);
+		MonitorPlugin.getInstance().getWindow().getEventList().ensureIndexIsVisible(model.size() - 1);
 	}
 	
 	public static void addLog(Event event)
 	{
-		MonitorPlugin.getInstance().getWindow().getConsoleListModel().addElement(event);
+		DefaultListModel model = MonitorPlugin.getInstance().getWindow().getConsoleListModel();
+		model.addElement(event);
 		
-		if(MonitorPlugin.getInstance().getWindow().getConsoleListModel().size() > Config.maxConsole)
-			MonitorPlugin.getInstance().getWindow().getConsoleListModel().remove(0);
+		while(model.size() > Config.maxConsole)
+			model.remove(0);
 		
-		MonitorPlugin.getInstance().getWindow().getConsoleList().ensureIndexIsVisible(MonitorPlugin.getInstance().getWindow().getConsoleListModel().size() - 1);
+		MonitorPlugin.getInstance().getWindow().getConsoleList().ensureIndexIsVisible(model.size() - 1);
+	}
+
+	public static void addLogs(List<Event> data)
+	{
+		DefaultListModel model = MonitorPlugin.getInstance().getWindow().getConsoleListModel();
+		for(Event event : data)
+			model.addElement(event);
+		
+		while(model.size() > Config.maxConsole)
+			model.remove(0);
+		
+		MonitorPlugin.getInstance().getWindow().getConsoleList().ensureIndexIsVisible(model.size() - 1);
 	}
 	
 	public static void removeWorld(World world)
