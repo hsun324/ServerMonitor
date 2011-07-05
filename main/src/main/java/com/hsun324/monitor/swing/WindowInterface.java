@@ -3,6 +3,7 @@ package com.hsun324.monitor.swing;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import com.hsun324.monitor.Config;
 import com.hsun324.monitor.MonitorPlugin;
 import com.hsun324.monitor.bukkit.PlayerTracker;
 import com.hsun324.monitor.bukkit.WorldTracker;
@@ -14,16 +15,20 @@ public class WindowInterface
 	{
 		MonitorPlugin.getInstance().getWindow().getEventListModel().addElement(event);
 		
+		if(MonitorPlugin.getInstance().getWindow().getEventListModel().size() > Config.maxEvents)
+			MonitorPlugin.getInstance().getWindow().getEventListModel().remove(0);
+		
 		MonitorPlugin.getInstance().getWindow().getEventList().ensureIndexIsVisible(MonitorPlugin.getInstance().getWindow().getEventListModel().size() - 1);
-		MonitorPlugin.getInstance().getWindow().getEventList().repaint();
 	}
 	
 	public static void addLog(Event event)
 	{
 		MonitorPlugin.getInstance().getWindow().getConsoleListModel().addElement(event);
 		
+		if(MonitorPlugin.getInstance().getWindow().getConsoleListModel().size() > Config.maxConsole)
+			MonitorPlugin.getInstance().getWindow().getConsoleListModel().remove(0);
+		
 		MonitorPlugin.getInstance().getWindow().getConsoleList().ensureIndexIsVisible(MonitorPlugin.getInstance().getWindow().getConsoleListModel().size() - 1);
-		MonitorPlugin.getInstance().getWindow().getConsoleList().repaint();
 	}
 	
 	public static void removeWorld(World world)

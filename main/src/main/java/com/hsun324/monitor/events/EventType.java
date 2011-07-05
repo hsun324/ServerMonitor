@@ -2,7 +2,9 @@ package com.hsun324.monitor.events;
 
 import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
+import javax.swing.border.Border;
 
 import com.hsun324.monitor.icons.IconsList;
 
@@ -17,6 +19,7 @@ public enum EventType
 	
 	private Icon icon;
 	private Color borderColor;
+	private Border border;
 	private Color backgroundColor;
 	private Color upBackgroundColor;
 	private Color upTextColor;
@@ -26,6 +29,7 @@ public enum EventType
 	{
 		this.icon = icon;
 		this.borderColor = borderColor;
+		border = BorderFactory.createLineBorder(borderColor);
 		this.backgroundColor = backgroundColor;
 		this.upBackgroundColor = upBackgroundColor;
 		this.upTextColor = upTextColor;
@@ -40,6 +44,11 @@ public enum EventType
 	public Color getBorderColor()
 	{
 		return borderColor;
+	}
+	
+	public Border getBorder()
+	{
+		return border;
 	}
 	
 	public Color getBackgroundColor()

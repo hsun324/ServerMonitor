@@ -1,12 +1,16 @@
 package com.hsun324.monitor.events;
 
 import java.awt.Color;
+import java.awt.Font;
 
 public class Event
 {
 	private final String message;
 	private final EventType type;
 	private final org.bukkit.event.Event.Type nativeType;
+
+	public static final Font eventPlainFont = new Font("Verdana", Font.PLAIN, 12);
+	public static final Font eventBoldFont = new Font("Verdana", Font.BOLD, 12);
 	
 	public Event(String message, EventType type)
 	{

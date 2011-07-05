@@ -11,6 +11,8 @@ import com.hsun324.simplebukkit.config.yaml.YAMLConfigurationWrapper;
 
 public class Config
 {
+	public static int maxEvents = 200;
+	public static int maxConsole = 400;
 	public static List<String> privateStrings = new ArrayList<String>();
 	public static List<String> omitEvents = new ArrayList<String>();
 	public static void run()
@@ -28,6 +30,8 @@ public class Config
 		WindowInterface.addOption(new CheckableOption(new BooleanOption("world.entity", "Shows the number of entites in a world.", true).setSet(config)));
 		privateStrings = config.getStringList("private-commands", privateStrings);
 		omitEvents = config.getStringList("omit-events", omitEvents);
+		maxEvents = config.getInt("max-events", maxEvents);
+		maxConsole = config.getInt("max-console-lines", maxConsole);
 		config.save();
 	}
 }

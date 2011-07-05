@@ -3,7 +3,6 @@ package com.hsun324.monitor.swing;
 import java.awt.Component;
 import java.awt.Font;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -34,7 +33,7 @@ public class IconListCellRenderer extends DefaultListCellRenderer
 			else
 				label.setBackground(event.getType().getUpBackgroundColor());
 			if(cellHasFocus)
-				label.setBorder(BorderFactory.createLineBorder(event.getType().getBorderColor()));
+				label.setBorder(event.getType().getBorder());
 		}
 		return label;
 	}
