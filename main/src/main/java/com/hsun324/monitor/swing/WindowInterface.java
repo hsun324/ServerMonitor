@@ -18,7 +18,14 @@ public class WindowInterface
 	public static void addEvent(Event event)
 	{
 		DefaultListModel model = MonitorPlugin.getInstance().getWindow().getEventListModel();
-		model.addElement(event);
+		Object eventObject = null;
+		Event ev = null;
+		if(!model.isEmpty() &&
+		   (eventObject = model.get(model.size() - 1)) instanceof Event && eventObject != null &&
+		     (ev = (Event) eventObject).getMessage().equals(event.getMessage()))
+			ev.addAmount();
+		else
+			model.addElement(event);
 		
 		while(model.size() > Config.maxEvents)
 			model.remove(0);

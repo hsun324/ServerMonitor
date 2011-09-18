@@ -8,6 +8,7 @@ public class Event
 	private final String message;
 	private final EventType type;
 	private final org.bukkit.event.Event.Type nativeType;
+	private int amount = 1;
 
 	public static final Font eventPlainFont = new Font("Verdana", Font.PLAIN, 12);
 	public static final Font eventBoldFont = new Font("Verdana", Font.BOLD, 12);
@@ -37,6 +38,20 @@ public class Event
 	{
 		return nativeType;
 	}
+
+	public int getAmount()
+	{
+		return amount;
+	}
+	public void addAmount()
+	{
+		this.amount++;
+	}
+	public void setAmount(int amount)
+	{
+		this.amount = amount;
+	}
+	
 	@Override
 	public String toString()
 	{
@@ -62,7 +77,8 @@ public class Event
 			message = message.replaceAll("[&^\u00A7][a-fA-F0-9]", "");
 		if(changed)
 			message += "</font>";
-		return "<html><font color=\"" + getColorInHex(isSelected?type.getDownTextColor():type.getUpTextColor()) + "\">" + message;
+		String fontColor = getColorInHex(isSelected?type.getDownTextColor():type.getUpTextColor());
+		return "<html><font color=\"" + fontColor + "\">" + (amount > 1?" [x" + amount + "] ":"") + message;
 	}
 	private String getColorInHex(Color color)
 	{

@@ -2,11 +2,16 @@ package com.hsun324.monitor.swing;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.TrayIcon;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -22,7 +27,9 @@ import javax.swing.border.LineBorder;
 
 import net.minecraft.server.MinecraftServer;
 
+import org.bukkit.Server;
 import org.bukkit.World;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.*;
 
@@ -37,6 +44,8 @@ import com.hsun324.simplebukkit.player.ColoredMessageSender;
 import com.hsun324.simplebukkit.util.BukkitUtils;
 
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -105,6 +114,8 @@ public class MainWindow
 	private JButton serverAnnounceAction = null;
 	private JPanel consolePanel = null;
 	private JTextField consoleInputField = null;
+	@SuppressWarnings("unused")
+	private TrayIcon windowTrayIcon = null;  //  @jve:decl-index=0:
 	public void open()
 	{
 		getJFrame().setVisible(true);
@@ -332,10 +343,50 @@ public class MainWindow
 			window.setSize(new Dimension(600, 800));
 			window.setContentPane(getMainPanel());
 			window.setTitle("Minecraft Server GUI");
+			window.addWindowListener(new java.awt.event.WindowAdapter() {
+				public void windowActivated(java.awt.event.WindowEvent e)
+				{
+					handleWindowActivate();
+				}
+			});
+			
+			PopupMenu popup = new PopupMenu();
+		    MenuItem openWindow = new MenuItem("Open Window");
+		    openWindow.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e)
+				{
+					getJFrame().toFront();
+				}
+		    });
+		    popup.add(openWindow);
+		    
+		    /*if(SystemTray.isSupported())
+		    {
+				windowTrayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage("mc.png"), "Minecraft Server", popup);
+				
+				windowTrayIcon.setImageAutoSize(true);
+				windowTrayIcon.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e)
+					{
+						getJFrame().toFront();
+					}
+			    });
+				windowTrayIcon.setToolTip("Ready - Minecraft Server");
+				
+				try
+				{
+					SystemTray.getSystemTray().add(windowTrayIcon);
+				}
+				catch (AWTException awtException) { }
+		    }*/
 		}
 		return window;
 	}
 
+	public void handleWindowActivate()
+	{
+		
+	}
 	/**
 	 * This method initializes mainPane	
 	 * 	
@@ -348,7 +399,7 @@ public class MainWindow
 			mainPane.addTab("Server", IconsList.serverIcon, getServerPanel(), null);
 			mainPane.addTab("Player", IconsList.userIcon, getPlayerPanel(), null);
 			mainPane.addTab("World", IconsList.worldIcon, getPlayerListPanel(), null);
-			mainPane.addTab("Event", IconsList.infoIcon, getEventScrollPane(), null);
+			mainPane.addTab("Event", IconsList.infoIcon, getEventPane(), null);
 			mainPane.addTab("Console", IconsList.terminalIcon, getConsolePanel(), null);
 			mainPane.addTab("Graphs", IconsList.tableIcon, getGraphPane(), null);
 		}
@@ -1157,6 +1208,7 @@ public class MainWindow
 			serverLabel.setText("Server");
 			serverLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
 			serverPanel = new JPanel();
+			serverPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			serverPanel.setLayout(new GridBagLayout());
 			serverPanel.add(serverLabel, gridBagConstraints15);
 			serverPanel.add(serverAllocatedLabel, gridBagConstraints16);
@@ -1210,12 +1262,11 @@ public class MainWindow
 			serverStopAction.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e)
 				{
+					Server server = MonitorPlugin.getInstance().getServer();
 					ColoredMessageSender.announceMessage("&7Stopping Server...");
-					MonitorPlugin.getInstance().getPM().disablePlugins();
-					MonitorPlugin.getInstance().getServer().savePlayers();
-					for(World world : MonitorPlugin.getInstance().getServer().getWorlds())
-						world.save();
-					System.exit(0);
+					server.getPluginManager().disablePlugins();
+					server.savePlayers();
+					server.dispatchCommand(new ConsoleCommandSender(server), "stop");
 				}
 			});
 		}
@@ -1248,23 +1299,40 @@ public class MainWindow
 	 */
 	private JPanel getConsolePanel() {
 		if (consolePanel == null) {
+			GridBagConstraints gridBagConstraints53 = new GridBagConstraints();
+			gridBagConstraints53.gridx = 0;
+			gridBagConstraints53.insets = new Insets(3, 6, 0, 3);
+			gridBagConstraints53.fill = GridBagConstraints.NONE;
+			gridBagConstraints53.anchor = GridBagConstraints.WEST;
+			gridBagConstraints53.gridy = 0;
+			consoleLabel = new JLabel();
+			consoleLabel.setFont(new Font("Verdana", Font.PLAIN, 12));
+			consoleLabel.setText("Console Input");
+			GridBagConstraints gridBagConstraints52 = new GridBagConstraints();
+			gridBagConstraints52.gridx = 0;
+			gridBagConstraints52.fill = GridBagConstraints.BOTH;
+			gridBagConstraints52.insets = new Insets(0, 3, 3, 3);
+			gridBagConstraints52.gridy = 3;
 			GridBagConstraints gridBagConstraints37 = new GridBagConstraints();
 			gridBagConstraints37.fill = GridBagConstraints.HORIZONTAL;
 			gridBagConstraints37.gridx = 0;
-			gridBagConstraints37.gridy = 0;
+			gridBagConstraints37.gridy = 1;
 			gridBagConstraints37.insets = new Insets(3, 3, 3, 3);
 			gridBagConstraints37.weightx = 1.0;
 			GridBagConstraints gridBagConstraints38 = new GridBagConstraints();
 			gridBagConstraints38.fill = GridBagConstraints.BOTH;
-			gridBagConstraints38.gridy = 1;
+			gridBagConstraints38.gridy = 2;
 			gridBagConstraints38.weightx = 1.0;
 			gridBagConstraints38.weighty = 1.0;
 			gridBagConstraints38.insets = new Insets(0, 3, 3, 3);
 			gridBagConstraints38.gridx = 0;
 			consolePanel = new JPanel();
+			consolePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			consolePanel.setLayout(new GridBagLayout());
 			consolePanel.add(getConsoleInputField(), gridBagConstraints37);
 			consolePanel.add(getConsoleScrollPanel(), gridBagConstraints38);
+			consolePanel.add(getConsoleClearButton(), gridBagConstraints52);
+			consolePanel.add(consoleLabel, gridBagConstraints53);
 		}
 		return consolePanel;
 	}
@@ -1288,6 +1356,11 @@ public class MainWindow
 	private DataMapViewer hostleEntityStatsViewer = null;
 	private DataMapViewer friendlyEntityStatsViewer = null;
 	private JButton openMinecraftServerFolderButton = null;
+	private JPanel eventPane = null;
+	private JButton eventClearButton = null;
+	private JLabel eventLabel = null;
+	private JButton consoleClearButton = null;
+	private JLabel consoleLabel = null;
 	/**
 	 * This method initializes consoleInputField	
 	 * 	
@@ -1529,6 +1602,7 @@ public class MainWindow
 			gridBagConstraints42.insets = new Insets(3, 3, 3, 3);
 			gridBagConstraints42.gridy = 0;
 			serverGraphPanel = new JPanel();
+			serverGraphPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			serverGraphPanel.setLayout(new GridBagLayout());
 			serverGraphPanel.add(getMemoryMapViewer(), gridBagConstraints42);
 			serverGraphPanel.add(getServerStatsViewer(), gridBagConstraints43);
@@ -1550,6 +1624,7 @@ public class MainWindow
 			gridBagConstraints45.insets = new Insets(3, 3, 3, 3);
 			gridBagConstraints45.gridy = 0;
 			playerGraphsPanel = new JPanel();
+			playerGraphsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			playerGraphsPanel.setLayout(new GridBagLayout());
 			playerGraphsPanel.add(getPlayerStatsViewer(), gridBagConstraints45);
 		}
@@ -1597,6 +1672,7 @@ public class MainWindow
 			gridBagConstraints44.insets = new Insets(3, 3, 3, 3);
 			gridBagConstraints44.gridy = 0;
 			worldGraphPanel = new JPanel();
+			worldGraphPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			worldGraphPanel.setLayout(new GridBagLayout());
 			worldGraphPanel.add(getEntityStatsViewer(), gridBagConstraints44);
 			worldGraphPanel.add(getHostleEntityStatsViewer(), gridBagConstraints46);
@@ -1661,5 +1737,81 @@ public class MainWindow
 					});
 		}
 		return openMinecraftServerFolderButton;
+	}
+	/**
+	 * This method initializes eventPane	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getEventPane() {
+		if (eventPane == null) {
+			GridBagConstraints gridBagConstraints50 = new GridBagConstraints();
+			gridBagConstraints50.gridx = 0;
+			gridBagConstraints50.fill = GridBagConstraints.BOTH;
+			gridBagConstraints50.insets = new Insets(3, 6, 0, 3);
+			gridBagConstraints50.gridy = 0;
+			eventLabel = new JLabel();
+			eventLabel.setText("Event Data");
+			eventLabel.setFont(new Font("Verdana", Font.PLAIN, 12));
+			eventPane = new JPanel();
+			eventPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			eventPane.setLayout(new GridBagLayout());
+			
+			GridBagConstraints gridBagConstraints49 = new GridBagConstraints();
+			gridBagConstraints49.gridx = 0;
+			gridBagConstraints49.insets = new Insets(3, 3, 3, 3);
+			gridBagConstraints49.fill = GridBagConstraints.BOTH;
+			gridBagConstraints49.weightx = 0.0;
+			gridBagConstraints49.weighty = 0.0;
+			gridBagConstraints49.gridy = 2;
+			
+			GridBagConstraints constraints = new GridBagConstraints();
+			constraints.weightx = 1;
+			constraints.weighty = 1;
+			constraints.fill = GridBagConstraints.BOTH;
+			constraints.gridy = 1;
+			constraints.insets = new Insets(3, 3, 0, 3);
+			eventPane.add(getEventClearButton(), gridBagConstraints49);
+			eventPane.add(getEventScrollPane(), constraints);
+			eventPane.add(eventLabel, gridBagConstraints50);
+			
+		}
+		return eventPane;
+	}
+	/**
+	 * This method initializes eventClearButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getEventClearButton() {
+		if (eventClearButton == null) {
+			eventClearButton = new JButton();
+			eventClearButton.setText("Clear");
+			eventClearButton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent event)
+				{
+					getEventListModel().clear();
+				}
+			});
+		}
+		return eventClearButton;
+	}
+	/**
+	 * This method initializes consoleClearButton	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getConsoleClearButton() {
+		if (consoleClearButton == null) {
+			consoleClearButton = new JButton();
+			consoleClearButton.setText("Clear");
+			consoleClearButton.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e)
+				{
+					getConsoleListModel().clear();
+				}
+			});
+		}
+		return consoleClearButton;
 	}
 }
